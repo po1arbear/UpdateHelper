@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">UpdateHelper</string>
+
+    <string name="new_version_found">发现新版本：</string>
+    <string name="whether_to_update">是否下载更新?</string>
+    <string name="no_wifi_download_warn">目前手机不是WiFi状态
+        确认是否继续下载更新？
+    </string>
 </resources>
