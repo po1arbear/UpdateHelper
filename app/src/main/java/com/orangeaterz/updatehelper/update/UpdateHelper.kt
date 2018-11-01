@@ -53,12 +53,6 @@ class UpdateHelper private constructor(private val activity: Activity) {
         get() = serverVersionCode > localVersionCode
 
 
-    private fun isNeeUpdate(): Boolean {
-        Log.d("", "serverVersionCode--->:$serverVersionCode")
-        Log.d("", "localVersionCode--->:$localVersionCode")
-        return serverVersionCode > localVersionCode
-    }
-
     fun needFitAndroidN(needFitAndroidN: Boolean): UpdateHelper {
         UpdateHelper.needFitAndroidN = needFitAndroidN
         return this
@@ -123,7 +117,7 @@ class UpdateHelper private constructor(private val activity: Activity) {
 
     }
 
-    fun update() {
+    private fun update() {
         when (checkBy) {
             CHECK_BY_VERSION_CODE -> if (serverVersionCode > localVersionCode) {
                 showUpdateDialog()
@@ -143,15 +137,15 @@ class UpdateHelper private constructor(private val activity: Activity) {
             update()
         } else {
             if (ContextCompat.checkSelfPermission(
-                    activity,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_GRANTED
+                            activity,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_GRANTED
             ) {
                 update()
             } else {//申请权限
                 ActivityCompat.requestPermissions(
-                    activity,
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1
+                        activity,
+                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1
                 )
             }
         }
@@ -186,7 +180,7 @@ class UpdateHelper private constructor(private val activity: Activity) {
         })
 
         var content =
-            activity.getString(R.string.new_version_found) + serverVersionName + "\n" + activity.getString(R.string.whether_to_update)
+                activity.getString(R.string.new_version_found) + serverVersionName + "\n" + activity.getString(R.string.whether_to_update)
         if (!TextUtils.isEmpty(updateInfo)) {
             content = activity.getString(R.string.new_version_found) + serverVersionName +
                     activity.getString(R.string.whether_to_update) + "\n\n" + updateInfo
